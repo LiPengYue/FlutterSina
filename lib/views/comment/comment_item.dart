@@ -105,38 +105,38 @@ class _CommentItemWidget extends State<CommentItem> {
 
   List<InlineSpan> _createCommentRich() {
     String commentStr = widget.comment.text;
-    RegExp regExp = RegExp("@.*?:");
+    RegExp regExp = RegExp("\@.*?:");
     Iterable<RegExpMatch> results = regExp.allMatches(commentStr);
 
     List<InlineSpan> textSpans = List();
 
     if (results.length <= 0) {
-      return [_createCommentFragmentStr(commentStr, UColor.C222222)];
+      return [_createCommentFragmentStr(commentStr, UColor.C222222,FontWeight.w400)];
     }
 
-    int currentLast;
+    int currentLast = 0;
     for (RegExpMatch match in results) {
       if (match.start > currentLast) {
         String noramlStr = commentStr.substring(currentLast, match.start);
-        textSpans.add(_createCommentFragmentStr(noramlStr, UColor.C222222));
+        textSpans.add(_createCommentFragmentStr(noramlStr, UColor.C222222,FontWeight.w400));
       }
 
       String matchStr = match.group(0);
-      textSpans.add(_createCommentFragmentStr(matchStr, UColor.CblueAccent));
+      textSpans.add(_createCommentFragmentStr(matchStr, UColor.CblueAccent,FontWeight.w500));
       currentLast = match.end;
     }
     if (currentLast < commentStr.length) {
       String normalStr = commentStr.substring(currentLast, commentStr.length);
-      textSpans.add(_createCommentFragmentStr(normalStr, UColor.C222222));
+      textSpans.add(_createCommentFragmentStr(normalStr, UColor.C222222,FontWeight.w400));
     }
     return textSpans;
   }
 
-  InlineSpan _createCommentFragmentStr(String str, Color color) {
+  InlineSpan _createCommentFragmentStr(String str, Color color,FontWeight fontw) {
     return TextSpan(
         text: str,
         style:
-            TextStyle(color: color, fontSize: 13, fontWeight: FontWeight.w400));
+            TextStyle(color: color, fontSize: 13, fontWeight: fontw));
   }
 
   _createReplayCommentInfo() {
