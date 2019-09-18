@@ -153,7 +153,7 @@ class _CommentItemWidget extends State<CommentItem> {
         fit: StackFit.loose,
         alignment: Alignment.centerRight,
         children: <Widget>[
-//          _createCommentTime(), // 时间
+          _createCommentTime(), // 时间
           _createCommentButtons(),
         ],
       ),
@@ -161,19 +161,21 @@ class _CommentItemWidget extends State<CommentItem> {
   }
 
   _createCommentTime() {
-    DateTime dateTime = DateTime.parse(widget.comment.createdAt);
-    String month = dateTime.month.toString();
-    String day = dateTime.day.toString();
-    String hour = dateTime.hour.toString().padLeft(2, "0");
-    String minute = dateTime.minute.toString().padLeft(2, "0");
-    String createTimeStr = month + "-" + day + " " + hour + ":" + minute;
+    String str = widget.comment.createdAt;
+//    DataTime data = DateTime(str);
+//    DateTime dateTime = DateTime.parse(widget.comment.createdAt);
+//    String month = dateTime.month.toString();
+//    String day = dateTime.day.toString();
+//    String hour = dateTime.hour.toString().padLeft(2, "0");
+//    String minute = dateTime.minute.toString().padLeft(2, "0");
+//    String createTimeStr = month + "-" + day + " " + hour + ":" + minute;
     return Container(
       padding: EdgeInsets.only(),
       alignment: Alignment.centerLeft,
       child: Text(
         "9-10 12:02",
 //        createTimeStr,
-        style: TextStyle(color: UColor.CAFAFAF),
+        style: TextStyle(color: UColor.CAFAFAF,fontSize: 12),
       ),
     );
   }
@@ -257,23 +259,3 @@ class _CommentItemWidget extends State<CommentItem> {
     );
   }
 }
-
-//FlatButton.icon(
-//          splashColor: Colors.white,
-//          icon: Icon(
-//            Icons.favorite_border,
-//            color: UColor.CAFAFAF,
-//            size: 14,
-//          ),
-//          label: Text(
-//            "",
-//            maxLines: 1,
-//            style: TextStyle(
-//                color: UColor.CAFAFAF,
-//                fontSize: 12,
-//                fontWeight: FontWeight.normal),
-//          ),
-//          onPressed: () {},
-//        ),
-////      ),
-//    );
