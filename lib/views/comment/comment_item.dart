@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fullter_sina/utils/u_color.dart';
 import 'package:fullter_sina/models/comment_entity.dart';
 import 'dart:ui';
+import 'package:fullter_sina/utils/date_convert.dart';
 
 class CommentItem extends StatefulWidget {
   CommantCommants comment;
@@ -137,8 +138,8 @@ class _CommentItemWidget extends State<CommentItem> {
     return textSpans;
   }
 
-  InlineSpan _createCommentFragmentStr(String str, Color color,
-      FontWeight fontw) {
+  InlineSpan _createCommentFragmentStr(
+      String str, Color color, FontWeight fontw) {
     return TextSpan(
         text: str,
         style: TextStyle(color: color, fontSize: 13, fontWeight: fontw));
@@ -161,21 +162,24 @@ class _CommentItemWidget extends State<CommentItem> {
   }
 
   _createCommentTime() {
+    // Thu Sep 19 11:40:23 +0800 2019
     String str = widget.comment.createdAt;
-//    DataTime data = DateTime(str);
-//    DateTime dateTime = DateTime.parse(widget.comment.createdAt);
-//    String month = dateTime.month.toString();
-//    String day = dateTime.day.toString();
-//    String hour = dateTime.hour.toString().padLeft(2, "0");
-//    String minute = dateTime.minute.toString().padLeft(2, "0");
-//    String createTimeStr = month + "-" + day + " " + hour + ":" + minute;
+    List<String> dateList = str.split(" ");
+    String dateStr = "";
+    if (dateList.length > 3) {
+      String year = dateList.last;
+      String week = DateConvert.convertWeek(dateList[0], "周").dateStr;
+      String month = DateConvert.convertMonth(dateList[1], "月").dateStr;
+      String day = dateList[2];
+      dateStr = year + " " + month + " " + week + " " + day + "日";
+    }
+
     return Container(
       padding: EdgeInsets.only(),
       alignment: Alignment.centerLeft,
       child: Text(
-        "9-10 12:02",
-//        createTimeStr,
-        style: TextStyle(color: UColor.CAFAFAF,fontSize: 12),
+        dateStr,
+        style: TextStyle(color: UColor.CAFAFAF, fontSize: 12),
       ),
     );
   }
@@ -183,9 +187,7 @@ class _CommentItemWidget extends State<CommentItem> {
   _createCommentButtons() {
     double w = window.physicalSize.width;
     return Container(
-      constraints: BoxConstraints(
-          maxWidth: 300
-      ),
+      constraints: BoxConstraints(maxWidth: 300),
       alignment: Alignment.centerRight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
@@ -216,15 +218,13 @@ class _CommentItemWidget extends State<CommentItem> {
       str = count.toString();
     }
 
-
     return _createButton(str, 0, 30, Colors.red, Icons.favorite_border, () {
       print("点赞");
     });
   }
 
   _createButton(String rightText, double right, double width, Color color,
-      IconData icon,
-      VoidCallback block) {
+      IconData icon, VoidCallback block) {
     return Container(
       height: 40,
 //      color: color,
@@ -233,7 +233,6 @@ class _CommentItemWidget extends State<CommentItem> {
         child: Stack(
           fit: StackFit.loose,
           children: <Widget>[
-
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 8, top: 0, bottom: 0),
@@ -249,9 +248,12 @@ class _CommentItemWidget extends State<CommentItem> {
                 minWidth: 10,
               ),
               padding: EdgeInsets.only(left: 20, right: 8, top: 0, bottom: 0),
-              child: Text(rightText, style: TextStyle(fontSize: 12),
+              child: Text(
+                rightText,
+                style: TextStyle(fontSize: 12),
                 maxLines: 1,
-                overflow: TextOverflow.ellipsis,),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ],
         ),

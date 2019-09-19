@@ -5,6 +5,7 @@ import 'dart:core';
 import 'package:fullter_sina/api/api.dart';
 import 'package:fullter_sina/api/net_utils/net_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:fullter_sina/utils/touch_move.dart';
 
 class DataUtils {
 
@@ -46,6 +47,10 @@ class DataUtils {
     try {
       var respons = await NetUtils.get(Api.HOME_TIMELINE,_params);
       var re = respons;
+      String j = json.encode(Map.from(respons));
+      if (j != null) {
+        TouchMoveView.show(j);
+      }
       return respons;
     } catch(e) {
       print(e);

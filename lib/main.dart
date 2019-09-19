@@ -3,12 +3,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fullter_sina/api/api.dart';
-import 'package:fullter_sina/api/user_info/userInfoModel.dart';
+import 'package:fullter_sina/utils/event.dart';
 import 'package:fullter_sina/home.dart';
 import 'package:fullter_sina/views/StartPage/StartPageWidget.dart';
 
 import 'package:fullter_sina/routes/Application.dart';
 
+import 'package:fullter_sina/utils/touch_move.dart';
 import 'dart:ui';
 
 String token;
@@ -26,8 +27,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAPP extends State<MyApp> {
-  static const MethodChannel _channel =
-      const MethodChannel("welcome_page_channle_name");
+
+
   String token;
   bool _isShowWelcomePage = true;
   bool isLogIn = false;
@@ -43,7 +44,13 @@ class _MyAPP extends State<MyApp> {
       theme: ThemeData(
         platform: TargetPlatform.iOS,
       ),
-      home: createWelcomePage(),
+      home: Stack(
+      children: <Widget>[
+        createWelcomePage(),
+        TouchMoveView()
+      ],
+      )
+
     );
   }
 

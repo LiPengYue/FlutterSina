@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:fullter_sina/utils/event.dart';
 
 import 'views/homePage/home_page.dart';
 import 'views/video/video_page.dart';
@@ -15,6 +16,9 @@ import 'api/api.dart';
 import 'package:fluro/fluro.dart';
 
 class Home extends StatefulWidget {
+  static const MethodChannel methodChannel = const MethodChannel("welcome_page_channle_name");
+  static const EventChannel eventChannel =
+  const EventChannel("welcome_page_event_channle_name");
   @override
   _Home createState() => _Home();
 }
@@ -40,17 +44,14 @@ class _Home extends State<Home> {
   List<BottomNavigationBarItem> _bottomNavigationBarItemSelect4;
   List<BottomNavigationBarItem> _bottomNavigationBarItemSelect5;
 
-  static const MethodChannel _channel =
-      const MethodChannel("welcome_page_channle_name");
-  static const EventChannel _eventChannel =
-      const EventChannel("welcome_page_event_channle_name");
+
   bool isLogIn = false;
   String token;
 
   @override
   void initState() {
     super.initState();
-    _eventChannel
+    Home.eventChannel
         .receiveBroadcastStream()
         .listen(_eventChannelOnData, onError: _cventChannelError());
 
@@ -113,7 +114,7 @@ class _Home extends State<Home> {
   _getAuothCode() async {
     try {
       //原生方法名为callNativeMethond,flutterPara为flutter调用原生方法传入的参数，await等待方法执行
-      tokenmap = await _channel.invokeMapMethod("getOauthCode");
+      tokenmap = await Home.methodChannel.invokeMapMethod("getOauthCode");
       //如果原生方法执行回调传值给flutter，那下面的代码才会被执行
       print(tokenmap);
       return tokenmap;
