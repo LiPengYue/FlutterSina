@@ -86,7 +86,8 @@ class TouchMoveState extends State<TouchMoveView> {
                     child: FadeInImage(
                       fit: BoxFit.cover,
                       image: NetworkImage(
-                          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1567663863528&di=4f6e740aaffece6049fd27ee0f3db5a1&imgtype=0&src=http%3A%2F%2Fimg.bimg.126.net%2Fphoto%2FHa0yIZWZzMeg0_1tYk0SdQ%3D%3D%2F5698742378500849162.jpg"),
+                          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568903289436&di=dfc39cf0057ba8d2ddcd1cf20f3efc46&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F4d17253bf781347839246b716135e3851941b9c5a574-BP5WfX_fw658"),
+//汉尼拔                          "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1568903176569&di=ae9c32cca9bdd03670415df8a9ef3aec&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fq_70%2Cc_zoom%2Cw_640%2Fimages%2F20171021%2F403e01f1693444a1abb376271aac166e.jpeg"),
                       placeholder: AssetImage("Sina_LOGO64.png"),
                     ),
                   ),
