@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
+/// c_aa_rr_gg_bb
 class UColor {
 
   UColor._();
@@ -18,9 +19,14 @@ class UColor {
   static const CFAFAFA = Color(0xFFFAFAFA);
   static const CF9F9F9 = Color(0xFFF9F9F9);
   static const CFBFBFB = Color(0xFFFBFBFB);
+
+  /// popview 背景色
+  static const C6600000 = Color(0x66000000);
+
   /// 微博黄
   static const CE79936 = Color(0xFFE79936);
 
+  /// @ 蓝
   static const CblueAccent =  Colors.blueAccent;
 
 }

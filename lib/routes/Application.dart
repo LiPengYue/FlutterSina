@@ -11,17 +11,21 @@ class Application {
     Routers.configureRoutes(route);
   }
 
+  static pop(BuildContext context) {
+    router.pop(context);
+  }
+
   static navigateTo(BuildContext context, String path,
       {bool replace = false,
       bool clearStack = false,
-      TransitionType transition,
+      TransitionType transition = TransitionType.inFromRight,
       Duration transitionDuration = const Duration(milliseconds: 250),
       RouteTransitionsBuilder transitionBuilder}) {
     router.navigateTo(context, path,
         replace: replace,
         clearStack: clearStack,
         transition: transition,
-        transitionDuration: Duration(milliseconds: 250),
+        transitionDuration: transitionDuration,
         transitionBuilder: transitionBuilder);
   }
 }

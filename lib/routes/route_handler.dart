@@ -6,6 +6,8 @@ import 'package:fullter_sina/views/comment/comments_page.dart';
 import 'package:fullter_sina/views/login/login_webview.dart';
 import 'package:fullter_sina/home.dart';
 
+import 'package:fullter_sina/views/comment/forwarding_popview.dart';
+import 'package:fullter_sina/utils/preview_image.dart';
 var startPage = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return StartPageWidget();
@@ -27,4 +29,37 @@ var goCommentsPageHandler = new Handler(
   String data = params["commentId"].first;
   int commentId = int.parse(data);
   return CommentsPage(commentId: commentId);
+});
+
+var goPreviewImageItemHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  String url = params["url"].first;
+  return PreviewImageItem(url: url,);
+
+});
+
+var goForWardingHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  double x = 0;
+  double y = 0;
+  double h = 0;
+  double w = 0;
+
+  try {
+    x = double.parse(params["x"].first);
+  } catch (e) {}
+  ;
+  try {
+    y = double.parse(params["y"].first);
+  } catch (e) {}
+  ;
+  try {
+    h = double.parse(params["h"].first);
+  } catch (e) {}
+  ;
+  try {
+    w = double.parse(params['w'].first);
+  } catch (e) {}
+  ;
+
+  return ForwardingPopViewAnimationController(rect: Rect.fromLTWH(x, y, w, h));
 });

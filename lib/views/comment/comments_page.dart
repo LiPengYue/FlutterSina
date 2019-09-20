@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fullter_sina/api/data_utils/data_utils.dart';
 import 'package:fullter_sina/models/comment_entity.dart';
+import 'package:fullter_sina/routes/Application.dart';
+import 'package:fullter_sina/utils/u_color.dart';
 import 'package:fullter_sina/views/comment/comment_item.dart';
 import 'package:fullter_sina/utils/navigation_title.dart';
 
@@ -30,6 +32,7 @@ class _CommentsWidget extends State<CommentsPage>
       });
     }).catchError((e) {
       print(e);
+      setState(() {});
     });
   }
 
@@ -39,6 +42,17 @@ class _CommentsWidget extends State<CommentsPage>
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(Icons.menu),
+              color: UColor.C333333,
+              onPressed: () {
+                Application.router.pop(context);
+              },
+            );
+          },
+        ),
         title: NavigationTitle(title: "评论"),
       ),
       body: _createMainView(),

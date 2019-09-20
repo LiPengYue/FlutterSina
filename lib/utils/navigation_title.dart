@@ -21,3 +21,22 @@ class _NavigationTitle extends State<NavigationTitle> {
     return Text(widget.title,style: TextStyle(color: UColor.C333333,fontWeight: FontWeight.bold));
   }
 }
+
+class NavigationBackItem extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() => _NavigationBackItem();
+}
+
+class _NavigationBackItem extends State<NavigationTitle> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.redAccent,
+      child: FlatButton(child: Icon(Icons.arrow_back_ios),color: UColor.C333333),
+    );
+//      Text(widget.title,style: TextStyle(color: UColor.C333333,fontWeight: FontWeight.bold));
+  }
+}
+

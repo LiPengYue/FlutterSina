@@ -31,6 +31,10 @@ class Api {
 /// https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.007oFfHEDkPS1C746b1dd856qkeL_E
   static const String HOME_TIMELINE = BASE_URL + "2/statuses/home_timeline.json";
 
+  static const String HOME_UUSERTIMELINE = BASE_URL + "2/statuses/user_timeline.json";
+
+
   // 获取评论 get
 static const String GETCOMMENTS = BASE_URL + "2/comments/show.json";
+
 }

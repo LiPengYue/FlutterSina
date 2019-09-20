@@ -1,13 +1,16 @@
 import 'dart:ui';
+import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:fullter_sina/routes/Application.dart';
 import 'package:fullter_sina/routes/route.dart';
 import 'package:fullter_sina/utils/u_color.dart';
 
 import 'package:fullter_sina/models/home_time_line_entity.dart';
+import 'package:fullter_sina/views/comment/forwarding_popview.dart';
 
 class HomeFocusItem extends StatefulWidget {
   HomeTimeLineStatus homeTimeLineStatus;
+
   int index;
 
   HomeFocusItem({this.homeTimeLineStatus, this.index});
@@ -17,8 +20,30 @@ class HomeFocusItem extends StatefulWidget {
 }
 
 class _HomeFocusItem extends State<HomeFocusItem> {
+  Rect currentForwardingButtonRect;
+  bool isShowForwardingView = false;
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> list = List();
+    list.add(_createMain());
+    if (isShowForwardingView) {
+      list.add(ForwardingPopViewAnimationController(
+        rect: currentForwardingButtonRect,
+        onTap: (){
+          setState(() {
+            isShowForwardingView = false;
+          });
+        },
+      ));
+    }
+    return _createMain();
+    return Stack(
+      fit: StackFit.expand,
+        children: list);
+  }
+
+  _createMain() {
     return Container(
       color: UColor.CFFFFFF,
       child: Column(
@@ -117,9 +142,7 @@ class _HomeFocusItem extends State<HomeFocusItem> {
               size: 20,
               color: UColor.CAFAFAF,
             ),
-            onTap: () {
-              _clickDownArrow();
-            },
+            onTap: () {},
           ),
         ),
       ],
@@ -152,14 +175,28 @@ class _HomeFocusItem extends State<HomeFocusItem> {
         maxHeight: 300,
       ),
       padding: EdgeInsets.only(top: 8, bottom: 5, left: 14, right: 14),
-      child: FadeInImage(
-        fit: BoxFit.cover,
-        alignment: Alignment.topCenter,
-        image: NetworkImage(url),
-        placeholder: AssetImage("Sina_LOGO64.png"),
-      ),
+      child: GestureDetector(
+        child: Hero(
+          tag: "lookImage",
+          child: FadeInImage(
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+            image: NetworkImage(url),
+            placeholder: AssetImage("Sina_LOGO64.png"),
+          ),
+        ),
+        onTap: () {
+          String url = widget.homeTimeLineStatus.originalPic;
+          url = url == null ? widget.homeTimeLineStatus.thumbnailPic : url;
+          url = url == null ? widget.homeTimeLineStatus.bmiddlePic : url;
+
+          Application.navigateTo(context, "${Routers.GoOauth}?url=${url}");
+        }),
+
     );
   }
+
+  GlobalKey pepleFeedbackKey = GlobalKey();
 
   _createPopleFeedback() {
     return Container(
@@ -187,8 +224,14 @@ class _HomeFocusItem extends State<HomeFocusItem> {
                   fontWeight: FontWeight.normal),
             ),
             onPressed: () {
-              _clickDownArrow();
+              RenderBox renderBox =
+                  pepleFeedbackKey.currentContext.findRenderObject();
+              Offset offset = renderBox.localToGlobal(Offset.zero);
+              Rect rect = Rect.fromLTWH(offset.dx, offset.dy,
+                  renderBox.size.width, renderBox.size.height);
+              _clickDownArrow(rect);
             },
+            key: pepleFeedbackKey,
           ),
           // 评论
           FlatButton.icon(
@@ -210,7 +253,8 @@ class _HomeFocusItem extends State<HomeFocusItem> {
             ),
             onPressed: () {
               Application.navigateTo(context,
-                  "${Routers.GoCommentsPath}?commentId=${widget.homeTimeLineStatus.id}");
+                  "${Routers.GoCommentsPath}?commentId=${widget.homeTimeLineStatus.id}",
+                  transition: TransitionType.inFromRight);
             },
           ),
 
@@ -240,9 +284,12 @@ class _HomeFocusItem extends State<HomeFocusItem> {
   }
 
   // MARK: - events
-  _clickDownArrow() {
+  _clickDownArrow(Rect rect) {
     print("点击了 _clickDownArrow");
-    Application.navigateTo(context, "${Routers.GoOauth}?data=${1}");
+    setState(() {
+      isShowForwardingView = true;
+      currentForwardingButtonRect = rect;
+    });
   }
 
   String _getSource() {

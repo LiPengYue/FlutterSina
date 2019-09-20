@@ -89,7 +89,7 @@ class _Home extends State<Home> {
     if (isLogIn) {
       return _createScaffold();
     } else {
-      return Container(color: Colors.red);
+      return Container(color: Colors.white);
     }
   }
 

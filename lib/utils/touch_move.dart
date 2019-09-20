@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fullter_sina/home.dart';
 import 'dart:math';
-import 'package:fullter_sina/utils/u_color.dart';
-
-import 'package:fullter_sina/utils/event.dart';
-import 'package:flutter/services.dart';
-import 'package:fullter_sina/views/homePage/home_page.dart';
 
 class TouchMoveView extends StatefulWidget {
   static String json;

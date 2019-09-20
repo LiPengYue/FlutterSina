@@ -8,7 +8,9 @@
 
 import UIKit
 import WebKit
-///https://api.weibo.com/oauth2/authorize?client_id=108320941&redirect_uri=http://www.baidu.com&code=\(code)&grant_type=authorization_code&client_secret=98d95899f6c0d601f1e29ebde8636c14
+
+let appId = "2965866070"
+let appSecret = "0b26438e5929e11c9c0e28c5206bdce4"
 class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     private var isLoad = true
     var getCodeCallBack: (([String:String])->())?
@@ -82,7 +84,7 @@ class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     }
     
     func getToken(_ code:String) {
-        let Str = "https://api.weibo.com/oauth2/access_token?client_id=2132142803&client_secret=596008f2c99da4fb1795041adb592fe9&grant_type=authorization_code&code=\(code)&redirect_uri=http://www.baidu.com"
+        let Str = "https://api.weibo.com/oauth2/access_token?client_id=\(appId)&client_secret=\(appSecret)&grant_type=authorization_code&code=\(code)&redirect_uri=http://www.baidu.com"
         
         if let url = URL(string: Str) {
             var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 30)
@@ -92,14 +94,14 @@ class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 
             let parameters: [String: Any] = [
                 "code": code,
-                "client_id" : "2132142803",
-                "client_secret" :"596008f2c99da4fb1795041adb592fe9",
+                "client_id" : appId,
+                "client_secret" : appSecret,
                 "grant_type" : "authorization_code",
                 "redirect_uri" : "http://www.baidu.com"
             ]
             
-            request.setValue("108320941", forHTTPHeaderField: "client_id");
-        request.setValue("98d95899f6c0d601f1e29ebde8636c14", forHTTPHeaderField: "client_secret")
+        request.setValue(appId, forHTTPHeaderField: "client_id");
+        request.setValue(appSecret, forHTTPHeaderField: "client_secret")
             
             request.httpBody = nil;//try? JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
             let session =  URLSession.shared
@@ -144,9 +146,9 @@ class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
 }
 
 private func getTookenWithCode(code:String) -> String {
-    return "https://api.weibo.com/oauth2/authorize?client_id=108320941&redirect_uri=http://www.baidu.com&code=\(code)&grant_type=authorization_code&client_secret=98d95899f6c0d601f1e29ebde8636c14"
+    return "https://api.weibo.com/oauth2/authorize?client_id=\(appId)&redirect_uri=http://www.baidu.com&code=\(code)&grant_type=authorization_code&client_secret=\(appSecret)"
 }
 
 private func getOauth2URL() -> String {
-    return "https://api.weibo.com/oauth2/authorize?client_id=2132142803&redirect_uri=http://www.baidu.com"
+    return "https://api.weibo.com/oauth2/authorize?client_id=\(appId)&redirect_uri=http://www.baidu.com"
 }
