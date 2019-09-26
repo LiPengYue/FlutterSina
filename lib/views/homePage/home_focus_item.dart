@@ -99,6 +99,14 @@ class _HomeFocusItem extends State<HomeFocusItem> {
                 border: Border.all(color: UColor.CE79936, width: 1),
               ),
             ),
+            onTap: (){
+              String url;
+              url = url == null ? widget.homeTimeLineStatus.user.avatarHd : url;
+              url = url == null ? widget.homeTimeLineStatus.user.avatarLarge: url;
+              url = url == null ? widget.homeTimeLineStatus.user.profileImageUrl  : url;
+
+              _pushToImagePreview(url);
+            },
           ),
         ),
 
@@ -176,24 +184,30 @@ class _HomeFocusItem extends State<HomeFocusItem> {
       ),
       padding: EdgeInsets.only(top: 8, bottom: 5, left: 14, right: 14),
       child: GestureDetector(
-        child: Hero(
-          tag: "lookImage",
+//        child: Hero(
+//          tag: "lookImage",
+//          child: Container(color: Colors.cyan),
           child: FadeInImage(
             fit: BoxFit.cover,
             alignment: Alignment.topCenter,
             image: NetworkImage(url),
             placeholder: AssetImage("Sina_LOGO64.png"),
           ),
-        ),
+//        ),
         onTap: () {
-          String url = widget.homeTimeLineStatus.originalPic;
+          String url = widget.homeTimeLineStatus.bmiddlePic;
           url = url == null ? widget.homeTimeLineStatus.thumbnailPic : url;
           url = url == null ? widget.homeTimeLineStatus.bmiddlePic : url;
-
-          Application.navigateTo(context, "${Routers.GoOauth}?url=${url}");
-        }),
+          _pushToImagePreview(url);
+        },
+    ),
 
     );
+  }
+
+  _pushToImagePreview(String url) {
+    url = url.replaceAll("/", "<B>");
+    Application.navigateTo(context, "${Routers.GoPreviewImageItem}?url=${url}");
   }
 
   GlobalKey pepleFeedbackKey = GlobalKey();

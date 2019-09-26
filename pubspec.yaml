@@ -32,6 +32,7 @@ dependencies:
   shared_preferences: ^0.4.2
 
   extended_image:
+  photo_view:
 
 dev_dependencies:
   flutter_test:

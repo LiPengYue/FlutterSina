@@ -9,8 +9,7 @@
 import UIKit
 import WebKit
 
-let appId = "2965866070"
-let appSecret = "0b26438e5929e11c9c0e28c5206bdce4"
+
 class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
     private var isLoad = true
     var getCodeCallBack: (([String:String])->())?
@@ -107,38 +106,35 @@ class BaseViewController: UIViewController,WKUIDelegate,WKNavigationDelegate {
             let session =  URLSession.shared
             
             let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-                
-                guard error == nil else {
-                    return
-                }
-                
+               DispatchQueue.main.async(execute: {
                 guard let data = data else {
-                    return
-                }
-                do {
-                    //create json object from data
-                    /**
-                     "access_token" = "2.007oFfHEDkPS1C746b1dd856qkeL_E";
-                     "expires_in" = 157679999;
-                     isRealName = true;
-                     "remind_in" = 157679999;
-                     uid = 3777759474;
-                    */
-                    let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
-                    print("✅ json: \(json)")
-                    let dic = json as! [String:Any]
-                    
-                    var dicStr = [String:String]()
-                    for v in dic {
-                        dicStr[v.key] = "\(v.value)"
-                    }
-                    
-                    
-                    self.getCodeCallBack?(dicStr)
-                        // handle json...
-                } catch let error {
-                    print(error.localizedDescription)
-                }
+                                   return
+                               }
+                               do {
+                                   //create json object from data
+                                   /**
+                                    "access_token" = "2.007oFfHEDkPS1C746b1dd856qkeL_E";
+                                    "expires_in" = 157679999;
+                                    isRealName = true;
+                                    "remind_in" = 157679999;
+                                    uid = 3777759474;
+                                   */
+                                   let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)
+                                   print("✅ json: \(json)")
+                                   let dic = json as! [String:Any]
+                                   
+                                   var dicStr = [String:String]()
+                                   for v in dic {
+                                       dicStr[v.key] = "\(v.value)"
+                                   }
+                                   
+                                   
+                                   self.getCodeCallBack?(dicStr)
+                                       // handle json...
+                               } catch let error {
+                                   print(error.localizedDescription)
+                               }
+               })
             })
             task.resume()
         }

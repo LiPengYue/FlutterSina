@@ -12,6 +12,7 @@ import 'views/my_page/MyPage.dart';
 import 'package:flutter/services.dart';
 import 'package:fullter_sina/api/user_info/userInfoModel.dart';
 import 'api/api.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:fluro/fluro.dart';
 
@@ -75,11 +76,17 @@ class _Home extends State<Home> {
   _eventChannelOnData(Object event) {
     print("原生 -> flutter");
       setState(() {
-
+        Map<String,String> map = Map<String,String>.from(event);
+        _saveAppInfo(map["appInfo"]);
         UserInfoModel model = UserInfoModel.fromMap(Map<String,String>.from(event));
         token = model.access_token;
         isLogIn = true;
     });
+  }
+
+  _saveAppInfo(String appInfo) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString("APPINFO", appInfo);
   }
 
   _cventChannelError() {}

@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
-
+var appId = "2965866070"
+var appSecret = "0b26438e5929e11c9c0e28c5206bdce4"
 @UIApplicationMain
 @objc class AppDelegate:
 FlutterAppDelegate,
@@ -30,6 +31,12 @@ FlutterStreamHandler
     flutterMethodChannel?.setMethodCallHandler({[weak self, weak flutterMethodChannel,weak flutterVc,weak flutterEventChannel] (call, result) in
         
         if (call.method.elementsEqual("getOauthCode")) {
+            let data: [String]? = call.arguments as? [String];
+            if let data = data, data.count >= 2{
+                appId = data.first ?? "";
+                appSecret = data[1];
+            }
+            
             self?.getOauthCodeWithFlutterVc(flutterVc)
         }
         
@@ -59,9 +66,10 @@ FlutterStreamHandler
     func getOauthCodeWithFlutterVc(_ flutterVc: FlutterViewController?) {
         let baseVc:BaseViewController = BaseViewController()
         baseVc.getCodeCallBack = {[weak baseVc] (dic) in
-        
+            var data = dic
+            data["appInfo"] = appId
             baseVc?.dismiss(animated: true, completion: nil)
-            self.eventChannelSink?(dic)
+            self.eventChannelSink?(data)
         }
         flutterVc?.present(baseVc, animated: true, completion: nil)
     }

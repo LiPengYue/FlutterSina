@@ -20,39 +20,63 @@ class _HomeFocusWidget extends State<HomeFocusWidget>
   @override
   void initState() {
     super.initState();
-    DataUtils.getHomeList().then((map) {
+    _reloadData();
+  }
+
+  List<HomeTimeLineStatus> statuses;
+  int _currentPage = 1;
+
+  _reloadData() {
+    _currentPage = 1;
+    _getMoreData();
+  }
+
+  _getMoreData() {
+    DataUtils.getHomeList(_currentPage).then((map) {
       setState(() {
         homeEntity = HomeTimeLineEntity.fromJson(Map.from(map));
+        if (_currentPage == 1) {
+          statuses = homeEntity.statuses;
+        }else{
+          statuses.addAll(homeEntity.statuses);
+        }
+        _currentPage += 1;
       });
     }).catchError((e) {
       setState(() {
-//        isError = true;
-        homeEntity = HomeTimeLineEntity.fromJson(Map.from(json.decode(DataUtils.jsonStr)));
+//        homeEntity = HomeTimeLineEntity.fromJson(
+//            Map.from(json.decode(DataUtils.jsonStr)));
+        statuses = homeEntity.statuses;
       });
-
       print(e);
-
     });
   }
 
   @override
   Widget build(BuildContext context) {
-
     // TODO: implement build
     if (homeEntity == null || homeEntity.statuses.length <= 0) {
-      return Container(child: Text("加载中", textAlign: TextAlign.center,),
-        alignment: Alignment.center,);
+      return Container(
+        child: Text(
+          "加载中",
+          textAlign: TextAlign.center,
+        ),
+        alignment: Alignment.center,
+      );
     }
 
-
-
     return Container(
-      child: ListView.builder(
-        itemCount: homeEntity.statuses.length,
-        itemBuilder: (BuildContext context, int idex) {
-          return HomeFocusItem(
-              homeTimeLineStatus: homeEntity.statuses[idex], index: idex);
-        },
+//      child: RefreshIndicator(
+        child: ListView.builder(
+          itemCount: statuses.length,
+          itemBuilder: (BuildContext context, int idex) {
+            return HomeFocusItem(
+                homeTimeLineStatus: statuses[idex], index: idex);
+          },
+//        ),
+//        onRefresh: (){
+//          _reloadData();
+//        },
       ),
     );
   }

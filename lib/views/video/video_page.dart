@@ -18,5 +18,4 @@ class _VideoPage extends State<VideoPage> with AutomaticKeepAliveClientMixin {
       color: Colors.red,
     );
   }
-
 }

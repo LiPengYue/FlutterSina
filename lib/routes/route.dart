@@ -10,8 +10,8 @@ class Routers {
   static String GoOauth = 'goOauth';
   static String GoStartPage = "~/";
   static String GoCommentsPath = '/GoCommentsPage';
-  static String GoForWarding = "GoForWarding";
-  static String GoPreviewImageItem = "GoPreviewImageItem";
+  static String GoForWarding = "/GoForWarding";
+  static String GoPreviewImageItem = "/GoPreviewImageItem";
 
   static void configureRoutes(Router router) {
     router.define(GoHomePage, handler: homePageHandler);

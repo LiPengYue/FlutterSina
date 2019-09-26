@@ -40,9 +40,10 @@ class DataUtils {
 
 
   /// 获取微博
-  static Future getHomeList() async {
+  static Future getHomeList(int page) async {
     Map<String, String> _params = Map();
     _params["access_token"] =  await Api.getToken();
+//    _params["page"] = page.toString();
 //https://api.weibo.com/2/statuses/home_timeline.json?access_token=2.007oFfHEDkPS1C746b1dd856qkeL_E
     try {
       var respons = await NetUtils.get(Api.HOME_TIMELINE,_params);

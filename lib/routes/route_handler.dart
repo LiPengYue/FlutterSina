@@ -33,6 +33,7 @@ var goCommentsPageHandler = new Handler(
 
 var goPreviewImageItemHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String url = params["url"].first;
+  url = url.replaceAll("<B>", "/");
   return PreviewImageItem(url: url,);
 
 });
