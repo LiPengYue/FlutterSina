@@ -30,7 +30,9 @@ dependencies:
   webview_flutter: ^0.3.13
   fluro: ^1.3.4
   shared_preferences: ^0.4.2
-
+  flutter_tableview: ^1.0.1
+  flutter_custom_dialog: ^1.0.4 #自定义弹框 https://juejin.im/post/5d85b4a06fb9a06af238aef9
+  flutter_animation_set: ^0.0.3 #自定义动画组建 https://juejin.im/post/5d9c701e6fb9a04e187c9799
   extended_image:
   photo_view:
 
@@ -52,8 +54,13 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-  - assets/images/
-  - assets/images/Sina_LOGO64.png
+  - images/
+  - images/Sina_LOGO64.png
+  - images/2.0x/Sina_LOGO64.png
+  - images/3.0x/Sina_LOGO64.png
+  - images/error.png
+  - images/2.0x/error.png
+  - images/3.0x/error.png
 #  - assets/images/lufei.jpg
 #  - assets/images/2.0x/lufei.jpg
 #  - assets/images/3.0x/lufei.jpg

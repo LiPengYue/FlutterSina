@@ -12,6 +12,8 @@ class Routers {
   static String GoCommentsPath = '/GoCommentsPage';
   static String GoForWarding = "/GoForWarding";
   static String GoPreviewImageItem = "/GoPreviewImageItem";
+  static String GoMyInfoPageItem = "/GoMyInfoPage";
+
 
   static void configureRoutes(Router router) {
     router.define(GoHomePage, handler: homePageHandler);
@@ -19,6 +21,7 @@ class Routers {
     router.define(GoCommentsPath, handler: goCommentsPageHandler);
     router.define(GoForWarding, handler: goForWardingHandler);
     router.define(GoPreviewImageItem, handler: goPreviewImageItemHandler);
+    router.define(GoMyInfoPageItem, handler: goMyInfoPageHander);
   }
 }
 

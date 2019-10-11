@@ -48,7 +48,6 @@ class _MyPage extends State<MyPage> {
                   style: TextStyle(color: color),
                 ),
                 onPressed: () {
-                  _saveAppInfo(appInfo[index].first);
                   Home.methodChannel
                       .invokeMapMethod("getOauthCode", appInfo[index]);
                 },
@@ -56,11 +55,6 @@ class _MyPage extends State<MyPage> {
             }),
       ),
     );
-  }
-
-  _saveAppInfo(String appInfo) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString("APPINFO", appInfo);
   }
 
   getAppInfo() async {

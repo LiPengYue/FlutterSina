@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'dart:math';
 
 /// c_aa_rr_gg_bb
 class UColor {
@@ -29,4 +30,7 @@ class UColor {
   /// @ 蓝
   static const CblueAccent =  Colors.blueAccent;
 
+  static Color randomColor() {
+    return Color.fromARGB(255, Random().nextInt(256)+0, Random().nextInt(256)+0, Random().nextInt(256)+0);
+  }
 }

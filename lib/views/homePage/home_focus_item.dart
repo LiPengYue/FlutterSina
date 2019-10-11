@@ -1,8 +1,10 @@
 import 'dart:ui';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fullter_sina/routes/Application.dart';
 import 'package:fullter_sina/routes/route.dart';
+import 'package:fullter_sina/routes/route_handler.dart';
 import 'package:fullter_sina/utils/u_color.dart';
 
 import 'package:fullter_sina/models/home_time_line_entity.dart';
@@ -30,7 +32,7 @@ class _HomeFocusItem extends State<HomeFocusItem> {
     if (isShowForwardingView) {
       list.add(ForwardingPopViewAnimationController(
         rect: currentForwardingButtonRect,
-        onTap: (){
+        onTap: () {
           setState(() {
             isShowForwardingView = false;
           });
@@ -38,9 +40,7 @@ class _HomeFocusItem extends State<HomeFocusItem> {
       ));
     }
     return _createMain();
-    return Stack(
-      fit: StackFit.expand,
-        children: list);
+    return Stack(fit: StackFit.expand, children: list);
   }
 
   _createMain() {
@@ -99,11 +99,15 @@ class _HomeFocusItem extends State<HomeFocusItem> {
                 border: Border.all(color: UColor.CE79936, width: 1),
               ),
             ),
-            onTap: (){
+            onTap: () {
               String url;
               url = url == null ? widget.homeTimeLineStatus.user.avatarHd : url;
-              url = url == null ? widget.homeTimeLineStatus.user.avatarLarge: url;
-              url = url == null ? widget.homeTimeLineStatus.user.profileImageUrl  : url;
+              url = url == null
+                  ? widget.homeTimeLineStatus.user.avatarLarge
+                  : url;
+              url = url == null
+                  ? widget.homeTimeLineStatus.user.profileImageUrl
+                  : url;
 
               _pushToImagePreview(url);
             },
@@ -115,27 +119,32 @@ class _HomeFocusItem extends State<HomeFocusItem> {
           top: 10,
           left: 65,
           right: 20,
-          child: Text.rich(
-            TextSpan(
-              text: widget.homeTimeLineStatus.user.name + "\n",
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.normal,
-                color: UColor.C333333,
-              ),
-              children: [
+          child: GestureDetector(
+              child: Text.rich(
                 TextSpan(
-                  text: _getSource(),
+                  text: widget.homeTimeLineStatus.user.name + "\n",
                   style: TextStyle(
-                    height: 1.5,
-                    fontSize: 12,
+                    fontSize: 14,
                     fontWeight: FontWeight.normal,
-                    color: UColor.CAFAFAF,
+                    color: UColor.C333333,
                   ),
+                  children: [
+                    TextSpan(
+                      text: _getSource(),
+                      style: TextStyle(
+                        height: 1.5,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal,
+                        color: UColor.CAFAFAF,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+              onTap: () {
+                Application.navigateTo(context,
+                    "${Routers.GoMyInfoPageItem}?uid=${widget.homeTimeLineStatus.user.id}");
+              }),
         ),
 
         // 右边的 下箭头
@@ -187,12 +196,12 @@ class _HomeFocusItem extends State<HomeFocusItem> {
 //        child: Hero(
 //          tag: "lookImage",
 //          child: Container(color: Colors.cyan),
-          child: FadeInImage(
-            fit: BoxFit.cover,
-            alignment: Alignment.topCenter,
-            image: NetworkImage(url),
-            placeholder: AssetImage("Sina_LOGO64.png"),
-          ),
+        child: FadeInImage(
+          fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
+          image: NetworkImage(url),
+          placeholder: AssetImage("Sina_LOGO64.png"),
+        ),
 //        ),
         onTap: () {
           String url = widget.homeTimeLineStatus.bmiddlePic;
@@ -200,8 +209,7 @@ class _HomeFocusItem extends State<HomeFocusItem> {
           url = url == null ? widget.homeTimeLineStatus.bmiddlePic : url;
           _pushToImagePreview(url);
         },
-    ),
-
+      ),
     );
   }
 
@@ -365,6 +373,7 @@ class _HomeFocusItem extends State<HomeFocusItem> {
         }
 
         TextSpan text = TextSpan(
+            recognizer: TapGestureRecognizer()..onTap = () {},
             text: str,
             style: TextStyle(
               fontSize: 14,

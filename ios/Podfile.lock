@@ -1,5 +1,9 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_animation_set (0.0.1):
+    - Flutter
+  - flutter_custom_dialog (0.0.1):
+    - Flutter
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -25,6 +29,8 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `.symlinks/flutter/ios`)
+  - flutter_animation_set (from `.symlinks/plugins/flutter_animation_set/ios`)
+  - flutter_custom_dialog (from `.symlinks/plugins/flutter_custom_dialog/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
   - PYJsonViewManager
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
@@ -45,6 +51,10 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: ".symlinks/flutter/ios"
+  flutter_animation_set:
+    :path: ".symlinks/plugins/flutter_animation_set/ios"
+  flutter_custom_dialog:
+    :path: ".symlinks/plugins/flutter_custom_dialog/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
   shared_preferences:
@@ -58,6 +68,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_animation_set: 31208a26d053b9101b2cec06b0593957fd372b07
+  flutter_custom_dialog: c0d222a3c35af5b57581e54ef8784c94037cd2ec
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   path_provider: f96fff6166a8867510d2c25fdcc346327cc4b259
   PYBaseColorHandler: 27c5875ddfd66672ca47a8d23930fde523720fda

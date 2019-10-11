@@ -8,6 +8,8 @@ import 'package:fullter_sina/home.dart';
 
 import 'package:fullter_sina/views/comment/forwarding_popview.dart';
 import 'package:fullter_sina/utils/preview_image.dart';
+import 'package:fullter_sina/views/my_page/MyInfoPage.dart';
+
 var startPage = new Handler(
     handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   return StartPageWidget();
@@ -31,11 +33,13 @@ var goCommentsPageHandler = new Handler(
   return CommentsPage(commentId: commentId);
 });
 
-var goPreviewImageItemHandler = new Handler(handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+var goPreviewImageItemHandler = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
   String url = params["url"].first;
   url = url.replaceAll("<B>", "/");
-  return PreviewImageItem(url: url,);
-
+  return PreviewImageItem(
+    url: url,
+  );
 });
 
 var goForWardingHandler = new Handler(
@@ -63,4 +67,10 @@ var goForWardingHandler = new Handler(
   ;
 
   return ForwardingPopViewAnimationController(rect: Rect.fromLTWH(x, y, w, h));
+});
+
+var goMyInfoPageHander = new Handler(
+    handlerFunc: (BuildContext context, Map<String, List<String>> params) {
+  String uid = params["uid"].first;
+  return MyInfoPage(uid: uid);
 });

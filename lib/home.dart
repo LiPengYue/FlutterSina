@@ -1,8 +1,5 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:fullter_sina/utils/event.dart';
-
 import 'views/homePage/home_page.dart';
 import 'views/video/video_page.dart';
 import 'views/found_page/FoundPage.dart';
@@ -14,7 +11,8 @@ import 'package:fullter_sina/api/user_info/userInfoModel.dart';
 import 'api/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:fluro/fluro.dart';
+
+
 
 class Home extends StatefulWidget {
   static const MethodChannel methodChannel = const MethodChannel("welcome_page_channle_name");
